@@ -29,7 +29,7 @@ MongoClient.connect('mongodb+srv://dakUser:ireLand6Nation$21@cluster0.cvpmd.mong
     })
     app.put('/quotes', (req, res) => {
       quotesCollection.findOneAndUpdate(
-        { name: 'Dakota'},
+        { name: 'Darth Vader'},
         {
           $set: {
             name: req.body.name, 
@@ -42,6 +42,25 @@ MongoClient.connect('mongodb+srv://dakUser:ireLand6Nation$21@cluster0.cvpmd.mong
       )
       .then(result => {
         res.json('Success')
+      })
+      .catch(error => console.error(error))
+    })
+    app.delete('/quotes', (req, res) => {
+      quotesCollection.deleteOne(
+        { name: req.body.name }
+      )
+      .then(result => {
+        if(result.deletedCount === 0) {
+          return res.json('All quotes from Darth Vader have been vanquished.')
+        }
+        res.json(`Deleted Darth Vader's quote`)
+      })
+      .then(response => {
+        if (response === 'All quotes from Darth Vader have been vanquished.') {
+          messageDiv.textContent = 'No Darth Vadar quote to delete'
+        } else {
+          window.location.reload(true)
+        }
       })
       .catch(error => console.error(error))
     })
