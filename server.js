@@ -11,7 +11,7 @@ MongoClient.connect('mongodb+srv://dakUser:ireLand6Nation$21@cluster0.cvpmd.mong
     const quotesCollection = db.collection('quotes')
 
     app.set('view engine', 'ejs')
-    app.use(bodyParser.urlencoded({ extended: true }))
+    app.use(bodyParser.json())
     app.use(express.static('public'))
     app.get('/', (req, res) => {
       db.collection('quotes').find().toArray()
