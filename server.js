@@ -27,6 +27,24 @@ MongoClient.connect('mongodb+srv://dakUser:ireLand6Nation$21@cluster0.cvpmd.mong
         })
         .catch(error => console.error(error))
     })
+    app.put('/quotes', (req, res) => {
+      quotesCollection.findOneAndUpdate(
+        { name: 'Dakota'},
+        {
+          $set: {
+            name: req.body.name, 
+            quote: req.body.quote
+          }
+        },
+        {
+          upsert: true
+        }
+      )
+      .then(result => {
+        res.json('Success')
+      })
+      .catch(error => console.error(error))
+    })
     app.listen(3000, function() {
       console.log("I'm listening on 3000")
     })
